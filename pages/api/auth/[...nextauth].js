@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
 
-const NEXTAUTH_URL='localhost:3000';
+const NEXTAUTH_URL = process.env.NEXTAUTH_URL || 'localhost:3000';
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
