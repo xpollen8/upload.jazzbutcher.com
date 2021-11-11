@@ -1,20 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-//const AWS_BUCKET = process.env.JBC_AWS_BUCKET;
-//const AWS_BUCKET_OBJECT = process.env.JBC_AWS_BUCKET_OBJECT;
-
-//console.log("AWS", { AWS_BUCKET, AWS_BUCKET_OBJECT });
-//const baseFilename = (id, file, ext) => `${id}:${file}`;
-
-//const bucketFilename = (id, file, ext) => `${AWS_BUCKET_OBJECT}/${baseFilename(id, file, ext)}`;
-
-//const displayFilename = (id, file, ext) => `https://${AWS_BUCKET}/${bucketFilename(id, file, ext)}`;
-
 const AssetUploader = ({ id = 'MISSING', value = '', setValue }) => {
 
-	const [ fName, fileType ] = value?.match('mbmoms') ? [ value, null ] : value.split('.');
-	//const [ filename, setFilename ] = useState(value ? displayFilename(id, value, fileType) : null);
+	const [ fName, fileType ] = value.split('.');
 	const [ filename, setFilename ] = useState(value);
 	const [ uploadInput, setUploadInput ] = useState();
 	const [ newFile, setNewfile ] = useState(false);
@@ -32,7 +21,6 @@ const AssetUploader = ({ id = 'MISSING', value = '', setValue }) => {
     // Split the filename to get the name and type
     const [ fName, fileType ] = file?.name.split('.');
 		const fileName = file.name;
-		//const baseName = baseFilename(id, file.name, fileType);
 
 		console.log("UPLOAD", { fileName, fileType });
 		if (!fileName) {
@@ -91,9 +79,7 @@ const AssetUploader = ({ id = 'MISSING', value = '', setValue }) => {
 					</div>
 				}
 				{!filename &&
-						<a onClick={(e) => { e.preventDefault();  uploadInput.click() }}>
-							Click to add new image
-						</a>
+					<button onClick={(e) => { e.preventDefault();  uploadInput.click() }}>ADD</button>
 				}
 				<input onChange={handleChange}
 					ref={(ref) => { setUploadInput(ref); }}
