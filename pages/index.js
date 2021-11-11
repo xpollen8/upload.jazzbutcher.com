@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 import Uploader from '../components/Uploader';
 
 export async function getServerSideProps({ req, res }) {
-	const session = await getSession({ req })
+	const session = (await getSession({ req })) || process.env.NEXTAUTH_URL === 'http://localhost:3000';
   return {
     props: {
 			session,
