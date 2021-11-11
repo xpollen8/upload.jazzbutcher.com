@@ -13,8 +13,10 @@ export async function getServerSideProps({ req, res }) {
 }
 
 const App = ({ session }) => {
-	const [ id, setId ] = useState();
+	const [ id, setId ] = useState('666');
 	const [ value, setValue ] = useState();
+
+	// validate Issue - if (getHttpReturnCode('https://github.com/xpollen8/jazzbutcher.com/issues/' + issueNum) <> 200) { // tell them no }
 
 	return (
 		<Layout title="Uploader">
