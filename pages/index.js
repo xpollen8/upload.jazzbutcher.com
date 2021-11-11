@@ -13,6 +13,8 @@ export async function getServerSideProps({ req, res }) {
 }
 
 const App = ({ session }) => {
+	const [ id, setId ] = useState();
+	const [ value, setValue ] = useState();
 
 	return (
 		<Layout title="Uploader">
@@ -33,7 +35,7 @@ const App = ({ session }) => {
 				</a>
 			</>}
 			{session && <>
-				<Uploader id={id} field={field} value={value} setValue={setValue} />
+				<Uploader id={id} value={value} setValue={setValue} />
 				</>
 			}
 		</Layout>   
