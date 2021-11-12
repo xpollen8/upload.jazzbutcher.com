@@ -3,20 +3,28 @@ import { signIn, signOut, getSession } from 'next-auth/client'
 import Layout from '../components/Layout';
 import Uploader from '../components/Uploader';
 
+
 export async function getServerSideProps({ req, res }) {
 	const session = (await getSession({ req })) || process.env.NEXTAUTH_URL === 'http://localhost:3000';
+	const issues = await fetch('https://api.github.com/search/issues?q=repo:xpollen8/jazzbutcher.com+type:issue+state:open&sort=asc')
+		.then(r => r.json())
+		.then(r => r?.items?.map(({ title, number }) => {
+			const truncAt = 40;
+			return {
+				number,
+				title: (title?.length > truncAt) ? `${title.substr(0, truncAt)}...` : title }
+		}));
   return {
     props: {
 			session,
+			issues,
 		},
   }
 }
 
-const App = ({ session }) => {
+const App = ({ session, issues }) => {
 	const [ id, setId ] = useState();
 	const [ value, setValue ] = useState();
-
-	// validate Issue - if (getHttpReturnCode('https://github.com/xpollen8/jazzbutcher.com/issues/' + issueNum) <> 200) { // tell them no }
 
 	return (
 		<Layout title="Uploader">
@@ -26,15 +34,17 @@ const App = ({ session }) => {
 			{(session) ? (<>
 				<div className="App">
 				<center>
-				<b>Github Issue #</b>: <input type="text" name="id" value={value} onChange={(ev) => setId(ev?.target?.value)} />
+				<b>Github Issue</b>:
+				<select name="id" value={value} onChange={(ev) => setId(ev?.target?.value)} >
+				{issues.map(({ number, title }) => (<option value={number}>#{number}: {title}</option>))}
+				</select>
 				</center>
 				{id && <Uploader who={session?.user?.email} id={id} value={value} setValue={setValue} />}
 				<div>
 					<hr/>
 					Instructions:
 					<ol>
-					<li>On github find the issue related to this upload</li>
-					<li>Enter the Github issue number in the top box.</li>
+					<li>Select the Github issue from those available.</li>
 					<li>In the middle box: Select..</li>
 					<li>In the middle box: Upload..</li>
 					<li>Wait!</li>
