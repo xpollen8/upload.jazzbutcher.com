@@ -101,3 +101,10 @@ a {
 .footer {
   margin-top: 2rem;
 }
+
+.App {
+	margin: 100px;
+	padding: 10px;
+	border: 1px solid;
+	width: 500px;
+}

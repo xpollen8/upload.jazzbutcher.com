@@ -23,7 +23,9 @@ const App = ({ session }) => {
 			<noscript>
 				<style>{`.nojs-show { opacity: 1; top: 0; }`}</style>
 			</noscript>
-			{!session && <>
+			{(session) ? (<>
+				<Uploader session={session} id={id} value={value} setValue={setValue} />
+			</>) : (<>
 				<span className={'notSignedInText'}>You are not signed in</span>
 				<a
 						href={`/api/auth/signin`}
@@ -35,10 +37,7 @@ const App = ({ session }) => {
 					>
 					Sign in
 				</a>
-			</>}
-			{session && <>
-				<Uploader id={id} value={value} setValue={setValue} />
-				</>
+			</>)
 			}
 		</Layout>   
 	)
