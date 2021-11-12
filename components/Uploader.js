@@ -106,7 +106,7 @@ const AssetUploader = ({ who = 'MISSING', id = 'MISSING', value = '', setValue }
 				}
 				<input onChange={handleChange}
 					ref={(ref) => { setUploadInput(ref); }}
-					type="file" accept="image/jpeg, image/png, video/mp4" hidden />
+					type="file" accept="image/jpeg, image/png, video/mp4, audio/mp3" hidden />
 				{(newFile && !uploading) &&
 					<button onClick={handleUpload}>Upload it!</button>
 				}
