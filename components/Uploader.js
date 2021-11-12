@@ -46,7 +46,7 @@ const AssetUploader = ({ id = 'MISSING', value = '', setValue }) => {
 		 // Put the fileType in the headers for the upload
 			const options = {
 				headers: {
-					'Content-Type': fileType
+					'Content-Type': fileType,
 				}
 			};
 			//console.log("SENDING", { signedRequest, options });
