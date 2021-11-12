@@ -1,6 +1,6 @@
 # upload.jazzbutcher.com
 
-Customr media uploader for [contributors of JBC material](https://github.com/xpollen8/jazzbutcher.com).
+Custom media uploader for use by [contributors of JBC material](https://github.com/xpollen8/jazzbutcher.com).
 
 Has Github authentication and uploads into a specific S# bucket.
 
