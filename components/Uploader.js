@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const AssetUploader = ({ session = { email: 'MISSING' }, id = 'MISSING', value = '', setValue }) => {
+const AssetUploader = ({ who = 'MISSING', id = 'MISSING', value = '', setValue }) => {
 	//const [ fName, fileType ] = value.split('.');
 	const [ filename, setFilename ] = useState(value);
 	const [ fName, setFName ] = useState();
@@ -11,7 +11,7 @@ const AssetUploader = ({ session = { email: 'MISSING' }, id = 'MISSING', value =
 	const [ newFile, setNewfile ] = useState(false);
 	const [ progress, setProgress ] = useState();
 
-	console.log("SESSION", session);
+	console.log("WHO", who);
 
   const handleChange = (ev) => {
 		if (ev.target.files.length) {
@@ -31,7 +31,7 @@ const AssetUploader = ({ session = { email: 'MISSING' }, id = 'MISSING', value =
     const file = uploadInput.files[0];
     // Split the filename to get the name and type
     //const [ fName, fileType ] = file?.name.split('.');
-		const fileName = `${id}::${session?.email}::${file.name}`;
+		const fileName = `${id}::${who}::${file.name}`;
 
 		console.log("UPLOAD", { fileName, fileType });
 		if (!fileName) {
@@ -112,13 +112,9 @@ const AssetUploader = ({ session = { email: 'MISSING' }, id = 'MISSING', value =
 				}
 			</center>
 		</div>
-		<div className="App">
-			<center>
-			{(progress) ?
-				(<div className="progress">{progress}</div>) : 
-				(<div>Instructions: <b>Select</b>.. <b>Upload</b>.. <i>Wait!</i></div>)}
-			</center>
-		</div>
+		{(progress) && <div className="App">
+			<center><div className="progress">{progress}</div></center>
+		</div>}
 		</>
 	);
 }
