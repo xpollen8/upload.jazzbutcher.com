@@ -109,3 +109,80 @@ a {
 	padding: 50px;
 	border: 1px solid;
 }
+
+
+h1,
+p {
+  font-family: Lato;
+  text-align: center;
+}
+
+hr {
+	margin-top: 25px;
+}
+
+.container {
+  text-align: center;
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.placeholder {
+  height: 250px;
+  width: 250px;
+  background-color: pink;
+  padding: 20px;
+}
+
+.fileuploaderdnd-container {
+  height: 250px;
+  width: 250px;
+
+  background-color: #87879231;
+  padding: 20px;
+}
+
+.input-img-file-file {
+  display: none;
+}
+
+.fileuploaderdnd-container-button {
+  position: relative;
+  top: 180px;
+  display: grid;
+  place-items: center;
+}
+
+.fileuploaderdnd-container-text {
+  font-size: 25px;
+  color: black;
+  opacity: 75%;
+  margin-top: 12px;
+}
+
+.button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  margin-top: 50px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

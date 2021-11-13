@@ -97,7 +97,7 @@ const AssetUploader = ({ who = 'MISSING', id = 'MISSING', value = '', setValue }
 						}}>
 							{['bmp','jpeg','png','jpg','gif'].includes(fileType) &&
 							<img src={filename} style={{width: '100%'}}/>}
-							{fName && <div>{fName}</div>}
+							{fName && <div>{fName}.{fileType}</div>}
 						</a>
 					</div>
 				}
