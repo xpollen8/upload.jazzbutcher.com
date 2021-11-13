@@ -95,7 +95,7 @@ const AssetUploader = ({ who = 'MISSING', id = 'MISSING', value = '', setValue }
 							e.preventDefault();
 							uploadInput.click()
 						}}>
-							{['jpeg','png','jpg','gif'].includes(fileType) &&
+							{['bmp','jpeg','png','jpg','gif'].includes(fileType) &&
 							<img src={filename} style={{width: '100%'}}/>}
 							{fName && <div>{fName}</div>}
 						</a>
@@ -106,7 +106,7 @@ const AssetUploader = ({ who = 'MISSING', id = 'MISSING', value = '', setValue }
 				}
 				<input onChange={handleChange}
 					ref={(ref) => { setUploadInput(ref); }}
-					type="file" accept="image/jpeg, image/png, video/mp4, audio/mp3, audio/flac, audio/x-aac" hidden />
+					type="file" hidden />
 				{(newFile && !uploading) &&
 					<button onClick={handleUpload}>Upload it!</button>
 				}
