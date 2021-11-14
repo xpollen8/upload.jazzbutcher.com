@@ -109,7 +109,7 @@ function FileUploaderDND(props) {
 }
 
 const App = ({ session, issues }) => {
-	const [ id, setId ] = useState();
+	const [ id, setId ] = useState(0);
 	const [ value, setValue ] = useState();
 	const [ url, setURL ] = useState();
 	const [ type, setType ] = useState();
