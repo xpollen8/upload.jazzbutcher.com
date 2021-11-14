@@ -112,6 +112,7 @@ const App = ({ session, issues }) => {
 	const [ id, setId ] = useState();
 	const [ value, setValue ] = useState();
 	const [ url, setURL ] = useState();
+	const [ type, setType ] = useState();
 
 		const [image, setImage] = useState('');
 	  const setImageAction = (img) => {
@@ -128,12 +129,19 @@ const App = ({ session, issues }) => {
 				<center>
 				<b>Github Issue</b>:
 				<select name="id" value={id} onChange={(ev) => setId(ev?.target?.value)} >
-				<option value={0} >-- Choose --</option>
+				<option value={0} >-- Choose github Issue --</option>
 				{issues.map(({ number, title }) => (<option key={number} value={number}>#{number}: {title}</option>))}
 				</select>
+				<br/>
+				<b>Upload Type</b>:
+				<select name="type" value={type} onChange={(ev) => setType(ev?.target?.value)} >
+					<option value='' >-- Choose upload type --</option>
+					<option value='upload'>I have a local file to upload</option>
+					<option value='transfer'>There's an online file to transfer</option>
+				</select>
 				</center>
-				{(id && parseInt(id, 10) > 0) && <Uploader who={session?.user?.email} id={id} />}
-				{(id && parseInt(id, 10) > 0) && <Transfer who={session?.user?.email} id={id} />}
+				{(type === 'upload' && id && parseInt(id, 10) > 0) && <Uploader who={session?.user?.email} id={id} />}
+				{(type === 'transfer' && id && parseInt(id, 10) > 0) && <Transfer who={session?.user?.email} id={id} />}
 
 				{/*
 				<h1>File Uploader Drag and Drop</h1>
@@ -156,9 +164,12 @@ const App = ({ session, issues }) => {
 					<hr/>
 					Instructions:
 					<ol>
-					<li>Select the Github issue from those available.</li>
-					<li>In the middle box: Select..</li>
-					<li>In the middle box: Upload..</li>
+					{(parseInt(id, 10) == 0) && <li>Select the Github issue from those available.</li>}
+					{(!type) && <li>Choose the type of upload</li>}
+					{(type === 'upload') && <li>In the middle box: Select a local file</li>}
+					{(type === 'upload') && <li>Press 'upload it!'</li>}
+					{(type === 'transfer') && <li>In the middle box: Enter the URL of the file to transfer.</li>}
+					{(type === 'transfer') && <li>Press 'transfer it!'</li>}
 					<li>Wait!</li>
 					<li>Move the github Issue to <i>Done</i> state</li>
 					</ol>
