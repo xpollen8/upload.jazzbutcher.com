@@ -103,10 +103,12 @@ a {
 }
 
 .App {
-	width: 80%;
+	width: 90%;
 	margin: auto;
 	margin-top: 20px;
-	padding: 50px;
+	padding: 10px;
+	padding-top: 40px;
+	padding-bottom: 40px;
 	border: 1px solid;
 }
 

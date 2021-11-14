@@ -126,7 +126,7 @@ const App = ({ session, issues }) => {
 			</noscript>
 			{(session) ? (<>
 				<div className="App">
-				<center>
+				<div style={{ textAlign: 'left' }}>
 				<b>Github Issue</b>:
 				<select name="id" value={id} onChange={(ev) => setId(ev?.target?.value)} >
 				<option value={0} >-- Choose github Issue --</option>
@@ -139,7 +139,7 @@ const App = ({ session, issues }) => {
 					<option value='upload'>I have a local file to upload</option>
 					<option value='transfer'>There's an online file to transfer</option>
 				</select>
-				</center>
+				</div>
 				{(type === 'upload' && id && parseInt(id, 10) > 0) && <Uploader who={session?.user?.email} id={id} />}
 				{(type === 'transfer' && id && parseInt(id, 10) > 0) && <Transfer who={session?.user?.email} id={id} />}
 
@@ -168,10 +168,10 @@ const App = ({ session, issues }) => {
 					{(!type) && <li>Choose the type of upload</li>}
 					{(type === 'upload') && <li>In the middle box: Select a local file</li>}
 					{(type === 'upload') && <li>Press 'upload it!'</li>}
+					{(type === 'upload') && <li>Move the github Issue to <i>Done</i> state</li>}
 					{(type === 'transfer') && <li>In the middle box: Enter the URL of the file to transfer.</li>}
 					{(type === 'transfer') && <li>Press 'transfer it!'</li>}
-					<li>Wait!</li>
-					<li>Move the github Issue to <i>Done</i> state</li>
+					{(type === 'transfer') && <li>Move the github Issue to <i>Done</i> state</li>}
 					</ol>
 					Know that you've done good in the world.
 					</div>
