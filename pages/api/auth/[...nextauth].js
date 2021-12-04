@@ -7,10 +7,12 @@ import Providers from "next-auth/providers"
 export default NextAuth({
 	// https://next-auth.js.org/configuration/providers
 	providers: [
+		/*
 		Providers.Email({
 			server: process.env['SENDGRID_SERVER'],
 			from: process.env['SENDGRID_FROM'],
 		}),
+		*/
 		Providers.GitHub({
 			clientId: process.env.GITHUB_ID,
 			clientSecret: process.env.GITHUB_SECRET,
@@ -24,6 +26,7 @@ export default NextAuth({
 	// * You must install an appropriate node_module for your database
 	// * The Email provider requires a database (OAuth providers do not)
 	//database: process.env.DATABASE_URL,
+	/*
 	database:  {
 		type: 'mysql',
 		host: process.env['MYSQL_HOST'],
@@ -31,8 +34,8 @@ export default NextAuth({
 		user: process.env['MYSQL_USER'],
 		password: process.env['MYSQL_PASSWORD'],
 		database: process.env['MYSQL_DATABASE'],
-		//...secrets.mysql,
 	},
+	*/
 
 	// The secret should be set to a reasonably long random string.
 	// It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
