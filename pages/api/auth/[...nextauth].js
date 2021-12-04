@@ -85,6 +85,7 @@ export default NextAuth({
 	// when an action is performed.
 	// https://next-auth.js.org/configuration/callbacks
 	callbacks: {
+		/*
 		async signIn(user, account, profile) {
 			console.log("SEND INVITE", { user, account, profile });
 			return true;
@@ -93,6 +94,7 @@ export default NextAuth({
 			console.log("REDIRECT", { url, baseUrl });
 			return `${baseUrl}/account`;
 		},
+		*/
 	},
 
 	// Events are useful for logging
