@@ -6,6 +6,7 @@ import Transfer from '../components/Transfer';
 
 export async function getServerSideProps({ req, res }) {
 	const session = (await getSession({ req })) || process.env.NEXTAUTH_URL === 'http://localhost:3000';
+	console.log("SESSION", session);
 	const issues = await fetch('https://api.github.com/search/issues?q=repo:xpollen8/jazzbutcher.com+type:issue+state:open&sort=asc')
 		.then(r => r.json())
 		.then(r => r?.items?.map(({ title, number }) => {
@@ -130,6 +131,7 @@ const App = ({ session, issues }) => {
 				<b>Github Issue</b>:
 				<select name="id" value={id} onChange={(ev) => setId(ev?.target?.value)} >
 				<option value={0} >-- Choose github Issue --</option>
+				<option value={666} >-- SOMETHING NOT LISTED BELOW --</option>
 				{issues.map(({ number, title }) => (<option key={number} value={number}>#{number}: {title}</option>))}
 				</select>
 				<br/>
