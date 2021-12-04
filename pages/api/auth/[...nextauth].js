@@ -7,6 +7,10 @@ import Providers from "next-auth/providers"
 export default NextAuth({
 	// https://next-auth.js.org/configuration/providers
 	providers: [
+		Providers.Email({
+			server: process.env['SENDGRID_SERVER'],
+			from: process.env['SENDGRID_FROM'],
+		}),
 		Providers.GitHub({
 			clientId: process.env.GITHUB_ID,
 			clientSecret: process.env.GITHUB_SECRET,
@@ -20,6 +24,15 @@ export default NextAuth({
 	// * You must install an appropriate node_module for your database
 	// * The Email provider requires a database (OAuth providers do not)
 	//database: process.env.DATABASE_URL,
+	database:  {
+		type: 'mysql',
+		host: process.env['MYSQL_HOST'],
+		username: process.env['MYSQL_USERNAME'],
+		user: process.env['MYSQL_USER'],
+		password: process.env['MYSQL_PASSWORD'],
+		database: process.env['MYSQL_DATABASE'],
+		//...secrets.mysql,
+	},
 
 	// The secret should be set to a reasonably long random string.
 	// It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
@@ -72,11 +85,32 @@ export default NextAuth({
 	// when an action is performed.
 	// https://next-auth.js.org/configuration/callbacks
 	callbacks: {
+		async signIn(user, account, profile) {
+			console.log("SEND INVITE", { user, account, profile });
+			return true;
+		},
+		async redirect(url, baseUrl) {
+			console.log("REDIRECT", { url, baseUrl });
+			return `${baseUrl}/account`;
+		},
 	},
 
 	// Events are useful for logging
 	// https://next-auth.js.org/configuration/events
 	events: {
+		signIn: async ({ isNewUser, user, account }) => {
+			if (isNewUser) {
+				/*
+				const res = await createAccount(user)
+					.catch(e => {
+						// TODO 
+						console.log("FAILURE createAccount");
+					});
+				console.log("AFTER createAccount", res);
+				*/
+			}
+			console.log("SIGNIN", { isNewUser, user, account });
+		}
 	},
 
 	// Enable debug messages in the console if you are having problems
