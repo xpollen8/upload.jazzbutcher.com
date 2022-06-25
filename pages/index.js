@@ -5,7 +5,8 @@ import Uploader from '../components/Uploader';
 import Transfer from '../components/Transfer';
 
 export async function getServerSideProps({ req, res }) {
-	const session = (await getSession({ req })) || process.env.NEXTAUTH_URL === 'http://localhost:3000';
+	//const session = (await getSession({ req })) || process.env.NEXTAUTH_URL === 'http://localhost:3000';
+	const session = { user: { email: 'open' } };
 	console.log("SESSION", session);
 	const issues = await fetch('https://api.github.com/search/issues?q=repo:xpollen8/jazzbutcher.com+type:issue+state:open&sort=asc')
 		.then(r => r.json())
@@ -110,7 +111,7 @@ function FileUploaderDND(props) {
 }
 
 const App = ({ session, issues }) => {
-	const [ id, setId ] = useState(0);
+	const [ id, setId ] = useState(666);
 	const [ value, setValue ] = useState();
 	const [ url, setURL ] = useState();
 	const [ type, setType ] = useState();
@@ -130,7 +131,7 @@ const App = ({ session, issues }) => {
 				<div style={{ textAlign: 'left' }}>
 				<b>Github Issue</b>:
 				<select name="id" value={id} onChange={(ev) => setId(ev?.target?.value)} >
-				<option value={0} >-- Choose github Issue --</option>
+				{/*<option value={0} >-- Choose github Issue --</option>*/}
 				<option value={666} >-- SOMETHING NOT LISTED BELOW --</option>
 				{issues.map(({ number, title }) => (<option key={number} value={number}>#{number}: {title}</option>))}
 				</select>
@@ -142,8 +143,8 @@ const App = ({ session, issues }) => {
 					<option value='transfer'>There's an online file to transfer</option>
 				</select>
 				</div>
-				{(type === 'upload' && id && parseInt(id, 10) > 0) && <Uploader who={session?.user?.email} id={id} />}
-				{(type === 'transfer' && id && parseInt(id, 10) > 0) && <Transfer who={session?.user?.email} id={id} />}
+				{!!(type === 'upload' && id && parseInt(id, 10) > 0) && <Uploader who={session?.user?.email} id={id} />}
+				{!!(type === 'transfer' && id && parseInt(id, 10) > 0) && <Transfer who={session?.user?.email} id={id} />}
 
 				{/*
 				<h1>File Uploader Drag and Drop</h1>
