@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { signIn, signOut, getSession } from 'next-auth/client'
+import { signIn, signOut, getSession } from 'next-auth/react'
 import Layout from '../components/Layout';
 import Uploader from '../components/Uploader';
 import Transfer from '../components/Transfer';

@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import Link from 'next/link'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 
 import { Image, Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 
 const Header = ({ title = 'Welcome!' }) => {
-	const [ session, loading ] = useSession();
+	const { data: session, loading } = useSession();
 	return (
 		<>
 		<Head>
