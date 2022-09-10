@@ -10,7 +10,7 @@
   "dependencies": {
     "aws-sdk": "^2.1026.0",
     "axios": "^0.24.0",
-    "dotenv": "^10.0.0",
+    "dotenv": "^16.0.2",
     "mysql2": "^2.3.3",
     "next": "latest",
     "next-auth": "latest",
