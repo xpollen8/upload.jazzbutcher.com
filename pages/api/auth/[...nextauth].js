@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
-import Providers from "next-auth/providers"
+//import Providers from "next-auth/providers"
+import GitHubProvider from "next-auth/providers/github";
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -13,7 +14,7 @@ export default NextAuth({
 			from: process.env['SENDGRID_FROM'],
 		}),
 		*/
-		Providers.GitHub({
+		GitHubProvider({
 			clientId: process.env.GITHUB_ID,
 			clientSecret: process.env.GITHUB_SECRET,
 			scope: "read:user",
