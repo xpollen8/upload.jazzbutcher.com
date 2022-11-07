@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "aws-sdk": "^2.1243.0",
+    "aws-sdk": "^2.1248.0",
     "axios": "^1.1.3",
     "dotenv": "^16.0.3",
     "mysql2": "^2.3.3",
