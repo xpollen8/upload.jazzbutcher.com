@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^1.2.1",
-    "aws-sdk": "^2.1262.0",
+    "aws-sdk": "^2.1282.0",
     "dotenv": "^16.0.3",
     "mysql2": "^2.3.3",
     "next": "latest",
