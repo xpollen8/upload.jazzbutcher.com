@@ -11,7 +11,7 @@
     "axios": "^1.2.2",
     "aws-sdk": "^2.1290.0",
     "dotenv": "^16.0.3",
-    "mysql2": "^2.3.3",
+    "mysql2": "^3.0.1",
     "next": "latest",
     "next-auth": "latest",
     "react": "18.2.0",
