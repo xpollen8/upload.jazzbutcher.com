@@ -11,8 +11,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "aws-sdk": "^2.1691.0",
     "axios": "^1.7.7",
-    "aws-sdk": "^2.1681.0",
     "next": "latest",
     "next-auth": "latest",
     "react": "18.3.1",
