@@ -16,7 +16,7 @@
     "next": "latest",
     "next-auth": "latest",
     "react": "19.0.0",
-    "react-bootstrap": "^2.10.8",
+    "react-bootstrap": "^2.10.9",
     "react-dom": "19.0.0",
     "request": "^2.88.2"
   }
