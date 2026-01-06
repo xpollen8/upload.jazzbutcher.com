@@ -26,14 +26,13 @@ const handler = async (req, res) => {
 	try {
 		const s3 = new aws.S3();  // Create a new instance of S3
 		const url = req.body.url;
-		const id = req.body?.id;
 		const who = req.body?.who;
 
 		// TODO HEAD to ensure that the URL mimetype is same as filetype
 
 		const parsed = new URL(url);
 		const path = parsed?.pathname?.split('/');
-		const Key = `${id}::${who}::${path[path?.length - 1] || 'UNDEFINED'}`;
+		const Key = `${who}::${path[path?.length - 1] || 'UNDEFINED'}`;
 		//console.log("FILE", { parsed, path, Key });
 		const { writeStream, promise, upload } = uploadStream({ Bucket: S3_BUCKET, Key });
 		const client = (parsed.protocol == "https:") ? https : http;

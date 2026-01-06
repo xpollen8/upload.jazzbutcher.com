@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const AssetUploader = ({ who = 'MISSING', id = 'MISSING', value = '', setValue }) => {
+const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 	//const [ fName, fileType ] = value.split('.');
 	const [ filename, setFilename ] = useState(value);
 	const [ fName, setFName ] = useState();
@@ -31,7 +31,7 @@ const AssetUploader = ({ who = 'MISSING', id = 'MISSING', value = '', setValue }
     const file = uploadInput.files[0];
     // Split the filename to get the name and type
     //const [ fName, fileType ] = file?.name.split('.');
-		const fileName = `${id}::${who}::${file.name}`;
+		const fileName = `${who}::${file.name}`;
 
 		console.log("UPLOAD", { fileName, fileType });
 		if (!fileName) {

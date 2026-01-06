@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Transfer = ({ who = 'MISSING', id = 'MISSING', value = '' }) => {
+const Transfer = ({ who = 'MISSING', value = '' }) => {
 	const [ url, setURL ] = useState(value);
 	const [ fName, setFName ] = useState();
 	const [ fileType, setFileType ] = useState();
@@ -36,7 +36,6 @@ const Transfer = ({ who = 'MISSING', id = 'MISSING', value = '' }) => {
       },
       body: JSON.stringify({
 				who,
-				id,
 				url,
 			})
     })
