@@ -12,7 +12,7 @@
     "axios": "^1.13.2",
     "next": "15.3.8",
     "next-auth": "latest",
-    "react": "19.2.0",
+    "react": "19.2.3",
     "react-bootstrap": "^2.10.10",
     "react-dom": "19.2.0",
     "request": "^2.88.2"
