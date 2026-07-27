@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1693.0",
-    "axios": "^1.18.0",
+    "axios": "^1.18.1",
     "next": "16.2.9",
     "next-auth": "latest",
     "react": "19.2.7",
