@@ -67,7 +67,7 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 					setProgress(percent === 100 ? 'Finishing..' : `${percent}%`);
 				}
 			};
-			//console.log("SENDING", { signedRequest, options });
+			console.log("SENDING", { signedRequest, options });
 			axios.put(signedRequest,file,options)
 			.then(result => {
 				//console.log("Response from s3", result, { fileName })
@@ -78,6 +78,9 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 				setProgress('Success!');
 			})
 		})
+		.error(e => {
+		console.log(JSON.stringify(e));
+		});
 		.catch(e => {
 				setUploading();
 				console.log("ERROR", e);
