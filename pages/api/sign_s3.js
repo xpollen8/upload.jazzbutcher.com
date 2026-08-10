@@ -6,10 +6,7 @@ const handler = async (req, res) => {
 	const region = process.env.JBC_AWS_REGION;
 	const bucket = process.env.JBC_AWS_BUCKET;
 
-	const client = new S3Client({ region, credentials: {
-	    secretAccessKey: process.env.JBC_AWS_ACCESSKEYID,
-			accessKeyId: process.env.JBC_AWS_SECRETACCESSKEY,
-	}});
+	const client = new S3Client({ region });
 	const command = new PutObjectCommand({ Bucket: bucket, Key: key });
 	const signedRequest = await getSignedUrl(client, command, { expiresIn: 3600 });
 	console.log("API", { success: true, returnedData: { url: key, signedRequest }});
