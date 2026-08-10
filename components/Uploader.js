@@ -24,65 +24,65 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 		}
   }
   // Perform the upload
-  const handleUpload = async (ev) => {
-		ev.preventDefault();
-		setUploading(true);
-		setProgress('Signing..');
-    const file = uploadInput.files[0];
-    // Split the filename to get the name and type
-    //const [ fName, fileType ] = file?.name.split('.');
-		const fileName = `${who}::${file.name}`;
+	try {
+		const handleUpload = async (ev) => {
+			ev.preventDefault();
+			setUploading(true);
+			setProgress('Signing..');
+			const file = uploadInput.files[0];
+			// Split the filename to get the name and type
+			//const [ fName, fileType ] = file?.name.split('.');
+			const fileName = `${who}::${file.name}`;
 
-		//console.log("UPLOAD", { fileName, fileType });
-		if (!fileName) {
-			throw 'invalid type';
-		}
-		setUploading(true);
-		setProgress('Uploading..');
-    fetch(`/api/sign_s3`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-				fileName,
-				fileType,
-			})
-    })
-		.then(e => e.json())
-		.then(response => {
-			const { url, signedRequest } = response.returnData;
-			//console.log("PUTTING",{ url, signedRequest });
-			//console.log("url", url);
-			//console.log("Received a signed request " + signedRequest);
-			
-		 // Put the fileType in the headers for the upload
-			const options = {
+			//console.log("UPLOAD", { fileName, fileType });
+			if (!fileName) {
+				throw 'invalid type';
+			}
+			setUploading(true);
+			setProgress('Uploading..');
+			fetch(`/api/sign_s3`, {
+				method: 'POST',
 				headers: {
-					'Content-Type': fileType,
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
 				},
-				onUploadProgress: (progressEvent) => {
-					const percent = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
-					setProgress(percent === 100 ? 'Finishing..' : `${percent}%`);
-				}
-			};
-			console.log("SENDING", { signedRequest, options });
-			axios.put(signedRequest,file,options)
-			.then(result => {
-				//console.log("Response from s3", result, { fileName })
-				//setFilename(`${displayFilename(id, file.name, fileType)}?${Date.now()}`);
-				//setValue(baseName);
-				setNewfile(false);
-				setUploading();
-				setProgress('Success!');
+				body: JSON.stringify({
+					fileName,
+					fileType,
+				})
 			})
-		})
-		.catch(e => {
-				console.log("ERROR", JSON.stringify(e));
-				setUploading();
-        //alert("ERROR " + JSON.stringify(e));
-		});
+			.then(e => e.json())
+			.then(response => {
+				const { url, signedRequest } = response.returnData;
+				//console.log("PUTTING",{ url, signedRequest });
+				//console.log("url", url);
+				//console.log("Received a signed request " + signedRequest);
+				
+			 // Put the fileType in the headers for the upload
+				const options = {
+					headers: {
+						'Content-Type': fileType,
+					},
+					onUploadProgress: (progressEvent) => {
+						const percent = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+						setProgress(percent === 100 ? 'Finishing..' : `${percent}%`);
+					}
+				};
+				console.log("SENDING", { signedRequest, options });
+				axios.put(signedRequest,file,options)
+				.then(result => {
+					//console.log("Response from s3", result, { fileName })
+					//setFilename(`${displayFilename(id, file.name, fileType)}?${Date.now()}`);
+					//setValue(baseName);
+					setNewfile(false);
+					setUploading();
+					setProgress('Success!');
+				})
+			})
+		}
+	} catch(e) {
+		console.log("FETCH ERROR", JSON.stringify(e));
+		setUploading();
   }
   
 	//console.log(">>>>", { filename, fileType, fName });
