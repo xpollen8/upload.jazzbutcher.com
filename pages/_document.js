@@ -14,7 +14,7 @@ class MyDocument extends Document {
   }
 
   render() {
-		let csp = `style-src 'self' 'unsafe-inline'; img-src blob: data: https://upload.jazzbutcher.com https://s3.us-east-1.amazonaws.com 'self'; frame-src 'unsafe-inline'; font-src 'self' data: ; connect-src https://s3.us-east-1.amazonaws.com 'self'; default-src 'self'; script-src 'self' ${cspHashOf(NextScript.getInlineScriptSource(this.props))} 'unsafe-eval'; script-src-elem 'self' ${cspHashOf(NextScript.getInlineScriptSource(this.props))} 'unsafe-eval'`
+		let csp = `style-src 'self' 'unsafe-inline'; img-src blob: data: https://upload.jazzbutcher.com https://s3.us-east-1.amazonaws.com 'self'; frame-src 'unsafe-inline'; font-src 'self' data: ; connect-src https://s3.us-east-1.amazonaws.com 'self'; default-src 'self'; script-src 'self' ${cspHashOf(NextScript.getInlineScriptSource(this.props))} 'unsafe-eval'`
 
     return (
       <Html lang="en">
