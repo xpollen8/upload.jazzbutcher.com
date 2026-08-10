@@ -78,12 +78,9 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 				setProgress('Success!');
 			})
 		})
-		.error(e => {
-		console.log(JSON.stringify(e));
-		});
 		.catch(e => {
+				console.log("ERROR", JSON.stringify(e));
 				setUploading();
-				console.log("ERROR", e);
         //alert("ERROR " + JSON.stringify(e));
 		});
   }
