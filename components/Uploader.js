@@ -78,17 +78,13 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 				setProgress('Success!');
 			})
 			.catch(e => {
-					console.log("AXIOS ERROR", JSON.stringify(e));
-					setUploading();
-					setProgress('Axios Failed!');
-					//alert("ERROR " + JSON.stringify(e));
+				setUploading();
+				setProgress(`Axios Failed! ${JSON.stringify(e)}`);
 			});
 		})
 		.catch(e => {
-				console.log("FETCH ERROR", JSON.stringify(e));
-				setUploading();
-				setProgress('Fetch Failed!');
-        //alert("ERROR " + JSON.stringify(e));
+			setUploading();
+			setProgress(`Fetch Failed! ${JSON.stringify(e)}`);
 		});
   }
   
