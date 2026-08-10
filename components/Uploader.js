@@ -80,44 +80,44 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 				})
 			})
 		}
+  
+		//console.log(">>>>", { filename, fileType, fName });
+		return (
+			<>
+			<div className="App">
+				<center>
+					{filename &&
+						<div style={{padding:10}}>
+							<a onClick={(e) => {
+								e.preventDefault();
+								uploadInput.click()
+							}}>
+								{['bmp','jpeg','png','jpg','gif'].includes(fileType) &&
+								<img src={filename} style={{width: '100%'}}/>}
+								{fName && <div>{fName}.{fileType}</div>}
+							</a>
+						</div>
+					}
+					{!uploading &&
+						<button onClick={(e) => { e.preventDefault();  uploadInput.click() }}>Select a file to upload</button>
+					}
+					<input onChange={handleChange}
+						ref={(ref) => { setUploadInput(ref); }}
+						type="file" hidden />
+					{(newFile && !uploading) &&
+						<button onClick={handleUpload}>Upload it!</button>
+					}
+				</center>
+			</div>
+			{(progress) && <div className="App">
+				<center><div className="progress">{progress}</div></center>
+			</div>}
+			</>
+		);
 	} catch(e) {
 		console.log("FETCH ERROR", JSON.stringify(e));
 		setUploading();
   }
-  
-	//console.log(">>>>", { filename, fileType, fName });
-	return (
-		<>
-		<div className="App">
-			<center>
-				{filename &&
-					<div style={{padding:10}}>
-						<a onClick={(e) => {
-							e.preventDefault();
-							uploadInput.click()
-						}}>
-							{['bmp','jpeg','png','jpg','gif'].includes(fileType) &&
-							<img src={filename} style={{width: '100%'}}/>}
-							{fName && <div>{fName}.{fileType}</div>}
-						</a>
-					</div>
-				}
-				{!uploading &&
-					<button onClick={(e) => { e.preventDefault();  uploadInput.click() }}>Select a file to upload</button>
-				}
-				<input onChange={handleChange}
-					ref={(ref) => { setUploadInput(ref); }}
-					type="file" hidden />
-				{(newFile && !uploading) &&
-					<button onClick={handleUpload}>Upload it!</button>
-				}
-			</center>
-		</div>
-		{(progress) && <div className="App">
-			<center><div className="progress">{progress}</div></center>
-		</div>}
-		</>
-	);
 }
 
 export default AssetUploader;
