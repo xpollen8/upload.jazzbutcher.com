@@ -19,7 +19,6 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
 				<Head>
-				  <meta httpEquiv="Content-Security-Policy" content={csp} />
 				</Head>
         <body>
           <Main />
