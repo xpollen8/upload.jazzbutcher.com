@@ -11,13 +11,13 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 	const [ newFile, setNewfile ] = useState(false);
 	const [ progress, setProgress ] = useState();
 
-	console.log("WHO", who);
+	//console.log("WHO", who);
 
   const handleChange = (ev) => {
 		if (ev.target.files.length) {
 			setNewfile(true);
 			setFilename(URL.createObjectURL(ev.target.files[0]));
-			console.log("FILENAME", filename, ev.target.files[0]);
+			//console.log("FILENAME", filename, ev.target.files[0]);
 			const [ x1, x2 ] = ev.target.files[0]?.name?.split('.');
 			setFName(x1);
 			setFileType(x2);
@@ -33,7 +33,7 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
     //const [ fName, fileType ] = file?.name.split('.');
 		const fileName = `${who}::${file.name}`;
 
-		console.log("UPLOAD", { fileName, fileType });
+		//console.log("UPLOAD", { fileName, fileType });
 		if (!fileName) {
 			throw 'invalid type';
 		}
@@ -52,7 +52,8 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
     })
 		.then(e => e.json())
 		.then(response => {
-			const { url, signedRequest } = response.data.returnData;
+			const { url, signedRequest } = response.returnData;
+			//console.log("PUTTING",{ url, signedRequest });
 			//console.log("url", url);
 			//console.log("Received a signed request " + signedRequest);
 			
@@ -69,13 +70,16 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 			//console.log("SENDING", { signedRequest, options });
 			axios.put(signedRequest,file,options)
 			.then(result => {
-				console.log("Response from s3", result, { fileName })
+				//console.log("Response from s3", result, { fileName })
 				//setFilename(`${displayFilename(id, file.name, fileType)}?${Date.now()}`);
 				//setValue(baseName);
 				setNewfile(false);
 				setUploading();
 				setProgress('Success!');
 			})
+			.err(e => {
+				setProgress(JSON.stringify(e));
+			});
 		})
 		.catch(e => {
 				setUploading();
@@ -84,7 +88,7 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 		});
   }
   
-	console.log(">>>>", { filename, fileType, fName });
+	//console.log(">>>>", { filename, fileType, fName });
 	return (
 		<>
 		<div className="App">

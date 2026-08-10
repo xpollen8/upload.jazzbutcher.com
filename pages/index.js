@@ -1,22 +1,11 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Layout from '../components/Layout';
 import Uploader from '../components/Uploader';
 import Transfer from '../components/Transfer';
 
-export async function getServerSideProps({ req, res }) {
-	const session = { user: { email: 'open' } };
-	//console.log("SESSION", session);
-  return {
-    props: {
-			session,
-		},
-  }
-}
-
-const App = ({ session }) => {
+const App = () => {
 	const [ who, setWho ] = useState('');
 	const [ value, setValue ] = useState();
-	const [ url, setURL ] = useState();
 	const [ type, setType ] = useState('upload');
 	const [ image, setImage ] = useState('');
 
