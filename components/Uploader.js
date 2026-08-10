@@ -60,7 +60,7 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 		 // Put the fileType in the headers for the upload
 			const options = {
 				headers: {
-					'Content-Type': fileType,
+					'ContentType': fileType,
 				},
 				onUploadProgress: (progressEvent) => {
 					const percent = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
