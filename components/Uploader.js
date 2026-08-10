@@ -1,6 +1,14 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const put = (url, data) => {
+  return new Promise((resolve, reject) => {
+		 axios.put(url,data)
+			 .then(result => resolve())
+			 .catch(e => reject(e))
+	});
+};
+
 const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 	//const [ fName, fileType ] = value.split('.');
 	const [ filename, setFilename ] = useState(value);
@@ -27,7 +35,6 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
   const handleUpload = async (ev) => {
 		ev.preventDefault();
 		setUploading(true);
-		setProgress('Signing..');
     const file = uploadInput.files[0];
     // Split the filename to get the name and type
     //const [ fName, fileType ] = file?.name.split('.');
@@ -38,8 +45,8 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 			throw 'invalid type';
 		}
 		setUploading(true);
-		setProgress('Uploading..');
-    fetch(`/api/sign_s3`, {
+		setProgress('Signing..');
+    await fetch(`/api/sign_s3`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -51,36 +58,18 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 			})
     })
 		.then(e => e.json())
-		.then(response => {
-			const { url, signedRequest } = response.returnData;
-			//console.log("PUTTING",{ url, signedRequest });
-			//console.log("url", url);
-			//console.log("Received a signed request " + signedRequest);
-			
-		 // Put the fileType in the headers for the upload
-			const options = {
-				headers: {
-					//'Content-Type': fileType,
-				},
-				onUploadProgress: (progressEvent) => {
-					const percent = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
-					setProgress(percent === 100 ? 'Finishing..' : `${percent}%`);
-				}
-			};
-			console.log("SENDING", { signedRequest, options });
-			axios.put(signedRequest,file,options)
-			.then(result => {
-				//console.log("Response from s3", result, { fileName })
-				//setFilename(`${displayFilename(id, file.name, fileType)}?${Date.now()}`);
-				//setValue(baseName);
-				setNewfile(false);
-				setUploading();
-				setProgress('Success!');
-			})
-			.catch(e => {
-				setUploading();
-				setProgress(`Axios Failed! ${JSON.stringify(e)}`);
-			});
+		.then(async ({ success, url, signedRequest }) => {
+			setProgress('Uploading..');
+			put(signedRequest, file)
+				.then(res => {
+					setNewfile(false);
+					setUploading();
+					setProgress('Success!');
+				})
+				.catch(e => {
+					setUploading();
+					setProgress(`PUT Failed! ${JSON.stringify(e)}`);
+				});
 		})
 		.catch(e => {
 			setUploading();
@@ -88,7 +77,6 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 		});
   }
   
-	//console.log(">>>>", { filename, fileType, fName });
 	return (
 		<>
 		<div className="App">
