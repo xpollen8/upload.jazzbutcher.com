@@ -14,11 +14,12 @@ class MyDocument extends Document {
   }
 
   render() {
-		let csp = `style-src 'self' 'unsafe-inline'; img-src blob: data: https://upload.jazzbutcher.com https://s3.us-east-1.amazonaws.com 'self'; frame-src 'unsafe-inline'; font-src 'self' data: ; connect-src https://s3.us-east-1.amazonaws.com 'self'; default-src 'self'; script-src 'unsafe-eval' 'self' ${cspHashOf(NextScript.getInlineScriptSource(this.props))}; script-src-elem 'unsafe-eval' 'self' ${cspHashOf(NextScript.getInlineScriptSource(this.props))}`
+		let csp = `style-src 'self' 'unsafe-inline'; img-src blob: data: https://upload.jazzbutcher.com https://upload.jazzbutcher.com.s3.us-east-1.amazonaws.com 'self'; frame-src 'unsafe-inline'; font-src 'self' data: ; connect-src https://upload.jazzbutcher.com.s3.us-east-1.amazonaws.com 'self'; default-src 'self'; script-src 'unsafe-eval' 'self' ${cspHashOf(NextScript.getInlineScriptSource(this.props))}; script-src-elem 'unsafe-eval' 'self' ${cspHashOf(NextScript.getInlineScriptSource(this.props))}`
 
     return (
       <Html lang="en">
 				<Head>
+				  <meta httpEquiv="Content-Security-Policy" content={csp} />
 				</Head>
         <body>
           <Main />
