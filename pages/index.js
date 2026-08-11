@@ -5,9 +5,7 @@ import Transfer from '../components/Transfer';
 
 const App = () => {
 	const [ who, setWho ] = useState('');
-	const [ value, setValue ] = useState();
-	const [ type, setType ] = useState('upload');
-	const [ image, setImage ] = useState('');
+	const [ type, setType ] = useState();
 
 	return (
 		<Layout title="Uploader">
@@ -18,13 +16,13 @@ const App = () => {
 				<center>
 				<b>Credit this upload to...?</b> <input type="text" name="who" length={20} onChange={(ev) => setWho(ev?.target?.value)} />
 				<p />
-				{/*!!(who?.length) &&
+				{!!(who?.length) &&
 				<select name="type" value={type} onChange={(ev) => setType(ev?.target?.value)} >
 					<option value='' >-- Choose upload type --</option>
 					<option value='upload'>I have a local file to upload</option>
 					<option value='transfer'>There's an online file to transfer</option>
 				</select>
-				*/}
+				}
 				</center>
 				{!!(type === 'upload' && who?.length) && <Uploader who={who} />}
 				{!!(type === 'transfer' && who?.length) && <Transfer who={who} />}

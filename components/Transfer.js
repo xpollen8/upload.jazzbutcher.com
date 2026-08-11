@@ -3,17 +3,12 @@ import axios from 'axios';
 
 const Transfer = ({ who = 'MISSING', value = '' }) => {
 	const [ url, setURL ] = useState(value);
-	const [ fName, setFName ] = useState();
-	const [ fileType, setFileType ] = useState();
 	const [ uploading, setUploading ] = useState();
 	const [ uploadInput, setUploadInput ] = useState();
 	const [ newURL, setNewURL ] = useState(false);
 	const [ progress, setProgress ] = useState();
 
-	console.log("WHO", who);
-
   const handleChange = (ev) => {
-		console.log("EV", ev?.target?.value);
 		const isUrl = (s) => {
 			return s?.match(/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/);
 		}
@@ -28,7 +23,7 @@ const Transfer = ({ who = 'MISSING', value = '' }) => {
 		ev.preventDefault();
 		setUploading(true);
 		setProgress('Transferring..');
-    fetch(`/api/stream`, {
+    fetch(`/api/transfer`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -40,9 +35,9 @@ const Transfer = ({ who = 'MISSING', value = '' }) => {
 			})
     })
 		.then(e => e.json())
-		.then(({ status, message }) => {
+		.then(({ success, message }) => {
 			setUploading();
-			if (status !== 'success') {
+			if (!success) {
 				setProgress(message);
 			} else {
 				setNewURL(false);

@@ -10,7 +10,6 @@ const put = (url, data) => {
 };
 
 const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
-	//const [ fName, fileType ] = value.split('.');
 	const [ filename, setFilename ] = useState(value);
 	const [ fName, setFName ] = useState();
 	const [ fileType, setFileType ] = useState();
@@ -19,13 +18,10 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 	const [ newFile, setNewfile ] = useState(false);
 	const [ progress, setProgress ] = useState();
 
-	//console.log("WHO", who);
-
   const handleChange = (ev) => {
 		if (ev.target.files.length) {
 			setNewfile(true);
 			setFilename(URL.createObjectURL(ev.target.files[0]));
-			//console.log("FILENAME", filename, ev.target.files[0]);
 			const [ x1, x2 ] = ev.target.files[0]?.name?.split('.');
 			setFName(x1);
 			setFileType(x2);
@@ -36,11 +32,8 @@ const AssetUploader = ({ who = 'MISSING', value = '', setValue }) => {
 		ev.preventDefault();
 		setUploading(true);
     const file = uploadInput.files[0];
-    // Split the filename to get the name and type
-    //const [ fName, fileType ] = file?.name.split('.');
 		const fileName = `${who}::${file.name}`;
 
-		//console.log("UPLOAD", { fileName, fileType });
 		if (!fileName) {
 			throw 'invalid type';
 		}
